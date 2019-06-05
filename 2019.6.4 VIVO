@@ -55,4 +55,27 @@ class Solution {
     }
 }
 
-3.0-1背包
+3.
+0-1背包 
+Given n items with size Ai and value Vi, and a backpack with size m. 
+What's the maximum value can you put into the backpack?
+
+
+public int backPack(int[] A, int[] V, int m) {
+    int[][] dp = new int[A.length][m + 1];
+    for (int j = 1; j < m + 1; j++) {
+        if (j == A[0]) {
+            dp[0][j] = V[0];
+        } else {
+            dp[0][j] = 0;
+        }
+        for (int i = 1; i < A.length; i++) {
+            if (j < A[i]) {
+                dp[i][j] = dp[i - 1][j];
+            } else {
+                dp[i][j] = Math.max(dp[i - 1][j - A[i]] + V[i], dp[i - 1][j]);
+            }
+        }
+    }
+    return dp[A.length - 1][m];
+}
